@@ -58,6 +58,7 @@ export class LayoutService {
 
   static getLevelColor(level) {
     const colors = LayoutService.getLevelColors();
-    return colors[level % colors.length];
+    const safeLevel = typeof level === 'number' ? level : 0;
+    return colors[safeLevel % colors.length];
   }
 }
