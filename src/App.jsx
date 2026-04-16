@@ -789,14 +789,14 @@ body {
                   <input
                     type="checkbox"
                     checked={!!selectedEdge.animated}
-                    onChange={(e) => {
-                      setEdges((eds) => eds.map((e) => {
-                        if (e.id === selectedEdge.id) {
-                          return { ...e, animated: e.target.checked };
+                    onChange={(event) => {
+                      setEdges((eds) => eds.map((edge) => {
+                        if (edge.id === selectedEdge.id) {
+                          return { ...edge, animated: event.target.checked };
                         }
-                        return e;
+                        return edge;
                       }));
-                      setSelectedEdge({ ...selectedEdge, animated: e.target.checked });
+                      setSelectedEdge({ ...selectedEdge, animated: event.target.checked });
                     }}
                   />
                   动画效果
