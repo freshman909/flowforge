@@ -447,16 +447,7 @@ body {
     URL.revokeObjectURL(url);
   };
 
-  // 添加自定义渐变定义
-  const EdgeGradient = () => (
-    <defs>
-      <linearGradient id="edge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#00ffff" />
-        <stop offset="50%" stopColor="#8b5cf6" />
-        <stop offset="100%" stopColor="#f472b6" />
-      </linearGradient>
-    </defs>
-  );
+
 
   return (
     <div className="App">
@@ -584,7 +575,6 @@ body {
               setSelectedEdge(null);
             }}
           >
-            <EdgeGradient />
             <Controls className="!bg-opacity-80 !backdrop-blur-xl !border-cyan-500/30" />
             <MiniMap 
               className="!bg-opacity-80 !backdrop-blur-xl !border-cyan-500/30"
