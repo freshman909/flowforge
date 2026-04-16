@@ -57,7 +57,7 @@ export class LayoutService {
   }
 
   static getLevelColor(level) {
-    const colors = this.getLevelColors();
+    const colors = LayoutService.getLevelColors();
     return colors[level % colors.length];
   }
 }
