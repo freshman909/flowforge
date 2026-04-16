@@ -2,7 +2,7 @@ import { Handle, Position } from '@reactflow/core';
 import { LayoutService } from '../services/layoutService';
 
 const CustomNode = ({ data, selected }) => {
-  const level = data.level || 0;
+  const level = data?.level || 0;
   const levelColor = LayoutService.getLevelColor(level);
   
   return (
@@ -67,8 +67,8 @@ const CustomNode = ({ data, selected }) => {
           boxShadow: `0 0 10px ${levelColor}`,
         }}
       />
-      <div>{data.label}</div>
-      {data.description && (
+      <div>{data?.label || '未命名节点'}</div>
+      {data?.description && (
         <div style={{
           fontSize: '11px',
           color: 'rgba(255, 255, 255, 0.6)',
