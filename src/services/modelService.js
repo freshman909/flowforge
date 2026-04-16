@@ -1,3 +1,39 @@
+// 配置管理
+const CONFIG_KEY = 'flowforge_config';
+
+const DEFAULT_CONFIG = {
+  apiKey: '',
+  modelType: 'glm',
+  modelName: 'glm-4'
+};
+
+const ConfigManager = {
+  getConfig() {
+    try {
+      const saved = localStorage.getItem(CONFIG_KEY);
+      if (saved) {
+        return { ...DEFAULT_CONFIG, ...JSON.parse(saved) };
+      }
+    } catch (e) {
+      console.error('读取配置失败:', e);
+    }
+    return { ...DEFAULT_CONFIG };
+  },
+
+  setConfig(config) {
+    try {
+      localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+    } catch (e) {
+      console.error('保存配置失败:', e);
+    }
+  },
+
+  resetConfig() {
+    this.setConfig({ ...DEFAULT_CONFIG });
+    return { ...DEFAULT_CONFIG };
+  }
+};
+
 // 模型服务抽象接口
 class ModelService {
   async generateCode(prompt, options = {}) {
@@ -7,9 +43,10 @@ class ModelService {
 
 // GLM模型服务实现
 class GLMModelService extends ModelService {
-  constructor(apiKey) {
+  constructor(apiKey, modelName = 'glm-4') {
     super();
     this.apiKey = apiKey || process.env.REACT_APP_GLM_API_KEY;
+    this.modelName = modelName;
     this.baseUrl = 'https://open.bigmodel.cn/api/mcp/text2text';
   }
 
@@ -81,7 +118,7 @@ export default GeneratedPage;
 const modelServiceFactory = (type, options = {}) => {
   switch (type) {
     case 'glm':
-      return new GLMModelService(options.apiKey);
+      return new GLMModelService(options.apiKey, options.modelName);
     default:
       throw new Error(`Unsupported model type: ${type}`);
   }
@@ -90,6 +127,14 @@ const modelServiceFactory = (type, options = {}) => {
 // 代码生成服务
 class CodeGenerationService {
   constructor(modelType = 'glm', modelOptions = {}) {
+    this.modelType = modelType;
+    this.modelOptions = modelOptions;
+    this.modelService = modelServiceFactory(modelType, modelOptions);
+  }
+
+  updateConfig(modelType, modelOptions) {
+    this.modelType = modelType;
+    this.modelOptions = modelOptions;
     this.modelService = modelServiceFactory(modelType, modelOptions);
   }
 
@@ -154,4 +199,4 @@ ${JSON.stringify(pageRoutes, null, 2)}
   }
 }
 
-export { ModelService, GLMModelService, modelServiceFactory, CodeGenerationService };
+export { ModelService, GLMModelService, modelServiceFactory, CodeGenerationService, ConfigManager, DEFAULT_CONFIG };

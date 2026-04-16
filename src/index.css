@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Rajdhani', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light;
-  color: #213547;
-  background-color: #ffffff;
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: #0a0a1a;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,45 +29,70 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background: linear-gradient(135deg, #0a0a1a 0%, #0f0f2a 50%, #050510 100%);
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 #root {
   width: 100%;
   height: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #00ffff;
   text-decoration: inherit;
+  transition: all 0.3s ease;
 }
 
 a:hover {
-  color: #535bf2;
+  color: #8b5cf6;
+  text-shadow: 0 0 10px #00ffff;
 }
 
-h1 {
-  font-size: 1.5rem;
-  line-height: 1.1;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
 }
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 255, 255, 0.3);
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #f9f9f9;
+  font-weight: 600;
+  font-family: 'Rajdhani', sans-serif;
+  background: rgba(255, 255, 255, 0.05);
+  color: #00ffff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: #00ffff;
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.2);
 }
